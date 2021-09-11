@@ -1,16 +1,15 @@
 import unittest
+from app.models import Source
 
-
-class SourceTest(unittest.TestCase):
-    '''
-    Test Class to test the behaviour of the Source class
-    '''
-
-    def setUp(self):
+class ArticleTest(unittest.TestCase):
+     '''
+     Test class to test the behaviour of the source class
+     '''
+     def setUp(self):
         '''
-        Set up method that  runs before every Test
+        Set up method thatt will run before every Test
         '''
         self.new_source = Source('Test id','Test name','Test description','Test categoty','Test language')
 
-    def test_instance(self):
+     def test_instance(self):
         self.assertTrue(isinstance(self.new_source,Source))

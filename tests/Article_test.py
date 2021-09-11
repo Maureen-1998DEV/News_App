@@ -1,18 +1,15 @@
-import unittest
-from app.models import Article
+import unittest 
+from app.models import Article  
 
-Articles = article.Article
-
-
-class ArticleTest(unittest.TestCase):
+class Article(unittest.TestCase):
     '''
-    Test class to test behaviour of Article class
+    Test class to test the behaviour of the Article class
     '''
     def setUp(self):
         '''
-        method that will run before every Test
+        Set up metod that run before every Test
         '''
         self.new_article = Article('Test author','Test title','Test description','Test url','Test image','Test publishedAt')
 
-    def test_instance(self):
-            self.assertTrue(isinstance(self.new_article,Article))
+    def test_instance(self) :
+        self.assertTrue(self.new_article,Article)  
