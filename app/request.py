@@ -10,13 +10,13 @@ Article = Article
 api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
 # Getting source url,article url
 News_Source_url = None
-articles_url = None
+article_url = None
  
 def configure_request(app):
-    global api_key,News_Source_url,articles_url
+    global api_key,News_Source_url,article_url
     api_key = app.config['NEWS_API_KEY']
     News_Source_url = app.config['NEWS_API_SOURCE']
-    articles_url = app.config['NEWS_API_ARTICLE']
+    article_url = app.config['NEWS_API_ARTICLE']
 
 def  get_newsource(category):
     '''
@@ -32,8 +32,8 @@ def  get_newsource(category):
         newsource_results = None
 
         if get_newsource_response['results']:
-            news_results_list = get_newsource_response['results']
-            news_results = process_results(news_results_list)
+            newsource_results_list = get_newsource_response['results']
+            newsource_results = process_results(newsource_results_list)
 
 
     return newsource_results
@@ -59,10 +59,10 @@ def get_articles(source_id,limit):
     '''
     Function that gets the json response to our url
     '''
-    get_articles_url = articles_url.format(source_id,limit,api_key)
-    print(get_articles_url)
+    get_article_url = article_url.format(source_id,limit,api_key)
+    print(get_article_url)
 
-    with urllib.request.urlopen(get_articles_url) as url:
+    with urllib.request.urlopen(get_article_url) as url:
         get_articles_data = url.read()
         get_articles_response = json.loads(get_articles_data)
 
@@ -99,4 +99,19 @@ def process_articles(articles_list):
             articles_results.append(articles_object)
 
     return articles_results
+
+def search_article(article_name):
+    search_article_url = 'https://newsapi.org/v2/everything?language=en&q={}&apiKey={}'.format(article_name,api_key)
+
+    with urllib.request.urlopen(search_article_url) as url:
+        search_article_data = url.read()
+        search_article_response = json.loads(search_article_data)
+
+        search_article_results = None
+
+        if search_article_response['articles']:
+            search_article_list = search_article_response['articles']
+            search_article_results = process_articles_results(search_article_list)
+
+    return search_article_results
         

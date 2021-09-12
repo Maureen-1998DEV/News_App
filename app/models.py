@@ -12,7 +12,7 @@ class Source:
 
 class Article:
     '''
-    Articles class to define Articles Objects
+    Article class to define Articles Objects
     '''
 
     def __init__(self,author,title,description,url,image,publishedAt):
