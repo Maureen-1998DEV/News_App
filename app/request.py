@@ -5,23 +5,24 @@ from datetime import datetime
 Source = Source
 
 Article = Article
-api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
-News_Source_url = None
-articles_url = None
 
 #Getting api key
-api_key = app.config['NEWS_API_KEY']
+api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
+# Getting source url,article url
+News_Source_url = None
+articles_url = None
+ 
+def configure_request(app):
+    global api_key,News_Source_url,articles_url
+    api_key = app.config['NEWS_API_KEY']
+    News_Source_url = app.config['NEWS_API_SOURCE']
+    articles_url = app.config['NEWS_API_ARTICLE']
 
-#Getting the source url
-base_url = app.config['NEWS_API_SOURCE']
-#Getting the article url
-article_url = app.config['NEWS_API_ARTICLE']
-
-def get_newsource(category):
+def  get_newsource(category):
     '''
     Function that gets the json response to our url request
     '''
-    get_newsource_url = base_url.format(category,api_key)
+    get_newsource_url = News_Source_url.format(category,api_key)
     print(get_newsource_url)
 
     with urllib.request.urlopen(get_newsource_url) as url:
@@ -58,7 +59,7 @@ def get_articles(source_id,limit):
     '''
     Function that gets the json response to our url
     '''
-    get_articles_url = article_url.format(source_id,limit,api_key)
+    get_articles_url = articles_url.format(source_id,limit,api_key)
     print(get_articles_url)
 
     with urllib.request.urlopen(get_articles_url) as url:
