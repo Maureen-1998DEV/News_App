@@ -5,6 +5,9 @@ from datetime import datetime
 Source = Source
 
 Article = Article
+api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
+News_Source_url = None
+articles_url = None
 
 #Getting api key
 api_key = app.config['NEWS_API_KEY']
