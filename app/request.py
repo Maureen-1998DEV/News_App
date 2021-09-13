@@ -6,16 +6,16 @@ Source = Source
 Article = Article
 
 #Getting api key
-api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
+api_key = 'b5a552ecd1014284b4bf5cbc587790c4'
 # Getting source url,article url
 News_Source_url = None
 article_url = None
  
 def configure_request(app):
     global api_key,News_Source_url,article_url
-    # api_key = app.config['NEWS_API_KEY']
     News_Source_url = app.config['NEWS_API_SOURCE_URL']
     article_url = app.config['NEWS_API_ARTICLE_URL']
+    api_key = ['NEWS_API_KEY']
 
 def  get_newsource(category):
     '''
