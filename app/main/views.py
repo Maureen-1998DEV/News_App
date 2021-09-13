@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,redirect,url_for,request
 from . import main
 
 from ..request import get_newsource,get_articles,search_article
@@ -15,25 +15,27 @@ def index():
     technology_newsource = get_newsource('technology')
     science_newsource = get_newsource('science')
     entertainment_newsource = get_newsource('entertainment')
-    health_sources = get_newsource('health')
+    health_newsource = get_newsource('health')
     sports_newsource = get_newsource('sports')
     
     
 
     title = ' Home | Welcome to the World of news'
-    search_article = request.args.get('article_query')
-    if search_article:
-        return redirect(url_for('main.search',article_name = search_article))
-    else:    
-      return render_template('index.html', title=title, general = general_newsource, technology = technology_newsource, entertainment = entertainment_newsource, sports = sports_newsource, business= business_newsource, science = science_newsource, health = health_sources)
+    # search_article = request.args.get('article_query')
+    # if search_article:
+    #     return redirect(url_for('main.search',article_name = search_article))
+    # else:    
+    return render_template('index.html', title=title, general = general_newsource, technology = technology_newsource, entertainment = entertainment_newsource, sports = sports_newsource, business= business_newsource, science = science_newsource, health = health_newsource)
 
-@main.route('/article/<source>')
-def article(source):
+@main.route('/source/articles/<source_id>')
+def article(source_id):
 
     '''
     View article page function that returns the article details page and its data
     '''
-    articles = get_articles(source)
+    articles = get_articles(source_id)
+    print(articles)
+    
     return render_template('article.html',articles =articles) 
 
 

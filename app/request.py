@@ -1,4 +1,3 @@
-from app import app
 import urllib.request,json
 from .models import Source,Article
 from datetime import datetime
@@ -14,15 +13,15 @@ article_url = None
  
 def configure_request(app):
     global api_key,News_Source_url,article_url
-    api_key = app.config['NEWS_API_KEY']
-    News_Source_url = app.config['NEWS_API_SOURCE']
-    article_url = app.config['NEWS_API_ARTICLE']
+    # api_key = app.config['NEWS_API_KEY']
+    News_Source_url = app.config['NEWS_API_SOURCE_URL']
+    article_url = app.config['NEWS_API_ARTICLE_URL']
 
 def  get_newsource(category):
     '''
     Function that gets the json response to our url request
     '''
-    get_newsource_url = News_Source_url.format(category,api_key)
+    get_newsource_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey=409c0e6afcce4ba0b4749a6ea62c1ce3'.format(category)
     print(get_newsource_url)
 
     with urllib.request.urlopen(get_newsource_url) as url:
@@ -31,8 +30,8 @@ def  get_newsource(category):
 
         newsource_results = None
 
-        if get_newsource_response['results']:
-            newsource_results_list = get_newsource_response['results']
+        if get_newsource_response['articles']:
+            newsource_results_list = get_newsource_response['articles']
             newsource_results = process_results(newsource_results_list)
 
 
@@ -54,7 +53,7 @@ def process_results(newsource_list):
 
         newsource_object = Source(id,name,description,category,language)
         newsource_results.append(newsource_object)
-        return newsource_results
+    return newsource_results
 def get_articles(source_id,limit):
     '''
     Function that gets the json response to our url
