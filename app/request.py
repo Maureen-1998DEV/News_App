@@ -1,12 +1,11 @@
-import urllib.request,json
+import urllib.request
+import json
 from .models import Source,Article
 from datetime import datetime
-Source = Source
 
-Article = Article
 
 #Getting api key
-api_key = 'b5a552ecd1014284b4bf5cbc587790c4'
+api_key = '409c0e6afcce4ba0b4749a6ea62c1ce3'
 # Getting source url,article url
 News_Source_url = None
 article_url = None
@@ -24,6 +23,7 @@ def  get_newsource(category):
     get_newsource_url = 'https://newsapi.org/v2/top-headlines?sources={}&apiKey=409c0e6afcce4ba0b4749a6ea62c1ce3'.format(category)
     print(get_newsource_url)
 
+
     with urllib.request.urlopen(get_newsource_url) as url:
         get_newsource_data = url.read()
         get_newsource_response = json.loads(get_newsource_data)
@@ -32,12 +32,12 @@ def  get_newsource(category):
 
         if get_newsource_response['articles']:
             newsource_results_list = get_newsource_response['articles']
-            newsource_results = process_results(newsource_results_list)
+            newsource_results = process_articles(newsource_results_list)
 
 
     return newsource_results
 
-def process_results(newsource_list):
+def process_result(newsource_list):
     '''
     Function that processes the source result and transform them to a list of objects
     Args:
@@ -48,10 +48,12 @@ def process_results(newsource_list):
         id = news_item.get('id')
         name = news_item.get('name')
         description = news_item.get('description')
-        category = news_item.get('category')
+        url = news_item.get('url')
+        urlToImage = news_item.get('urlToImage')
+
         language = news_item.get('language')
 
-        newsource_object = Source(id,name,description,category,language)
+        newsource_object = Source(id,name,description,url, urlToImage,language)
         newsource_results.append(newsource_object)
     return newsource_results
 def get_articles(source_id,limit):

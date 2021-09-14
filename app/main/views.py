@@ -17,7 +17,7 @@ def index():
     entertainment_newsource = get_newsource('entertainment')
     health_newsource = get_newsource('health')
     sports_newsource = get_newsource('sports')
-    
+    print(general_newsource)
     
 
     title = ' Home | Welcome to the World of news'
